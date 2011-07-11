@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>Radar Chart</title>
+</head>
+<body>
+<h1>Radar Chart</h1>
+<div id="radar" style="width:400px; height:400px"></div>
+<script type="text/javascript" src="raphael-min.js"></script>
+<script type="text/javascript" src="radar.js"></script>
+<script type="text/javascript">
+var paper= new Raphael("radar");
+var radar= paper.radar(150, 100, 100, {
+	data:[
+		{	name: "a test",
+			items:[
+				{
+					name:"France",
+					value:10,
+					colour:"blue"
+				},
+				{
+					name:"United Kingdom",
+					value:20,
+					colour:"red"
+				}
+			]
+		},
+		{name: "2nd test"},
+		{name: "3rd test"},
+		{name: "4th test"},
+		{name: "5th test"},
+		{name: "6 test"}
+	]
+});
+console.log(radar);
+</script>
+</body>
+</html>
