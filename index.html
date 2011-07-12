@@ -9,7 +9,7 @@
 <script type="text/javascript" src="radar.js"></script>
 <script type="text/javascript">
 var paper= new Raphael("radar");
-var radar= paper.radar(150, 100, 100, {
+var radar= paper.radar(150, 50, 20, {
 	data:[
 		{	name: "a test",
 			items:[
@@ -25,12 +25,28 @@ var radar= paper.radar(150, 100, 100, {
 				}
 			]
 		},
-		{name: "2nd test"},
+		{	name: "1 test",
+			items:[
+				{
+					name:"France",
+					value:25,
+					colour:"blue"
+				},
+				{
+					name:"United Kingdom",
+					value:78,
+					colour:"red"
+				}
+			]
+		},
 		{name: "3rd test"},
 		{name: "4th test"},
 		{name: "5th test"},
 		{name: "6 test"}
-	]
+	],
+	colours:{
+		
+	}
 });
 console.log(radar);
 </script>

@@ -1,10 +1,10 @@
 Raphael.fn.radar = function (radius, x, y, data) {
 	this.radius=radius;
-	this.x=x;
-	this.y;
 	this.d=data;
 	this.c={}
 	this.st=this.set();
+	this.c.x=x;
+	this.c.y=y;
 	
 	
 	this.calculations=function(){
@@ -30,8 +30,8 @@ Raphael.fn.radar = function (radius, x, y, data) {
 		for(var i in this.d.data){
 			var p=this.getPositionOnCircle(this.radius,angle);
 			this.path([
-				["M",this.radius, this.radius],
-				["L",p.x+this.radius,p.y+this.radius]
+				["M",this.radius + this.c.x, this.radius+this.c.y],
+				["L",p.x+this.radius + this.c.x,p.y+this.radius + this.c.y]
 			]);
 			angle+=this.c.segmentSectionAngle;
 		}
@@ -47,15 +47,19 @@ Raphael.fn.radar = function (radius, x, y, data) {
 				var p2=this.getPositionOnCircle(scaledValue, angle+segmentAngle);
 				var p3=this.getPositionOnCircle(scaledValue+10, angle+segmentAngle/2);
 				this.path([
-					["M",this.radius, this.radius],
-					["L",p1.x+this.radius, p1.y+this.radius],
-					["L",p2.x+this.radius, p2.y+this.radius],
-					["L",this.radius, this.radius]
+					["M",this.radius + this.c.x, this.radius + this.c.y],
+					["L",p1.x+this.radius+this.c.x, p1.y+this.radius+this.c.y],
+					["L",p2.x+this.radius + this.c.x, p2.y+this.radius+this.c.y],
+					["L",this.radius+this.c.x, this.radius+this.c.y]
 				]).attr({fill:this.d.data[i].items[j].colour, stroke:this.d.data[i].items[j].colour });
 				angle+=segmentAngle;				
 			}
-			var tPos=this.getPositionOnCircle(this.radius +10, i*this.c.segmentSectionAngle+this.c.segmentSectionAngle/2);
-			this.text(this.radius + tPos.x,this.radius + tPos.y, "some text, but why is it repeated").attr({"text-anchor":"center",fill:"#666666", "font-size":11});
+			var textAngle=i*this.c.segmentSectionAngle+this.c.segmentSectionAngle/2;
+			if( (textAngle>=265 && textAngle<=275) || (textAngle>=85 && textAngle<=95)) textAlign="center";
+			else if(textAngle>275 || textAngle<90) textAlign="start";
+			else if(textAngle>90 && textAngle<275) textAlign="end";
+			var tPos=this.getPositionOnCircle(this.radius +10, textAngle);
+			this.text(this.radius + tPos.x + this.c.x,this.radius + tPos.y + this.c.y, this.d.data[i].name).attr({"text-anchor":textAlign,fill:"#666666", "font-size":11});
 		}
 	}
 	
